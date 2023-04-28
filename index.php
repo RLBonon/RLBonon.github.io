@@ -15,13 +15,8 @@ $reversed_text="" ;
 if(isset($_POST['submit'])) {
   $text = $_POST['text'];
   $json = file_get_contents($_POST['text']);
-  $obj = json_decode($json);
-#Fixing output alignment
-#  foreach($obj as $key=>$value){
- #   echo $key . " => " . $value . "<br>";
-#	echo strrev($key);
-#	}
-	#Reverse text
+  $data = json_decode($json, true);
+
   $reversed_text = strrev($json);
 }
 ?>
@@ -29,15 +24,15 @@ if(isset($_POST['submit'])) {
 <form method="post" action="">
 <label for="URLorg" class="form-label">URL:</label>
 
-<textarea name="text" rows="4" cols="50"></textarea>
+<textarea name="text" rows="10" cols="50"></textarea>
   <br>
   <button type="submit" name="submit" style="background-color:Chartreuse;">Query</button>
   <br>
-  <label for="URLrespo" class="form-label">URL RESPONSE:</label>
-  <textarea name="response_text" rows="4" cols="50"><?php echo $json; ?></textarea>
+  <label for="URLrespo" class="form-label">URL RESPONSE:</label>		
+  <textarea name="response_text" rows="10" cols="50"><?php echo json_encode($data, JSON_PRETTY_PRINT); ?></textarea>
   <br>
   <br>
   <label for="InvertUrl" class="form-label">INVERTED URL RESPONSE:</label>
-  <textarea name="reversed_text" rows="4" cols="50"><?php echo $reversed_text; ?></textarea>
+  <textarea name="reversed_text" rows="10" cols="50"><?php echo json_encode($reversed_text, JSON_PRETTY_PRINT); ?></textarea>
 
 </form>
