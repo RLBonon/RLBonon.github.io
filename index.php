@@ -1,12 +1,19 @@
 <?php
+$json="" ;
+$reversed_text="" ;
 
 if(isset($_POST['submit'])) {
   $text = $_POST['text'];
   $json = file_get_contents($_POST['text']);
   $obj = json_decode($json);
+
+  foreach($obj as $key=>$value){
+    echo $key . " => " . $value . "<br>";
+	echo strrev($key);
+	}
+	#Reverse text
   $reversed_text = strrev($json);
 }
-
 ?>
 
 <form method="post" action="">
