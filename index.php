@@ -15,9 +15,30 @@ $reversed_text="" ;
 if(isset($_POST['submit'])) {
   $text = $_POST['text'];
   $json = file_get_contents($_POST['text']);
+  #URL Response formatting
   $data = json_decode($json, true);
 
-  $reversed_text = strrev($json);
+ #Getting Reverse text
+ $invertedData = array();
+
+foreach ($data as $key => $value) {
+    if ($key == 'results') {
+        $invertedResults = array();
+        foreach ($value as $result) {
+            $invertedResult = array();
+            foreach ($result as $subKey => $subValue) {
+                $invertedResult[strrev($subKey)] = strrev($subValue);
+            }
+            $invertedResults[] = $invertedResult;
+        }
+        $invertedData['stluser'] = $invertedResults;
+    } else {
+        $invertedData[strrev($key)] = $value;
+    }
+}
+unset($invertedData['pageNum'], $invertedData['totalNumPages'], $invertedData['found']);
+
+    $reversed_text = strrev($json);
 }
 ?>
 
@@ -33,6 +54,6 @@ if(isset($_POST['submit'])) {
   <br>
   <br>
   <label for="InvertUrl" class="form-label">INVERTED URL RESPONSE:</label>
-  <textarea name="reversed_text" rows="10" cols="50"><?php echo json_encode($reversed_text, JSON_PRETTY_PRINT); ?></textarea>
+  <textarea name="reversed_text" rows="10" cols="50"><?php echo json_encode($invertedData, JSON_PRETTY_PRINT); ?></textarea>
 
 </form>
