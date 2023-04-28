@@ -1,7 +1,5 @@
 <?php
 
-$obj = json_decode($json);
-
 if(isset($_POST['submit'])) {
   $text = $_POST['text'];
   $json = file_get_contents($_POST['text']);
