@@ -21,23 +21,25 @@ if(isset($_POST['submit'])) {
  #Getting Reverse text
  $invertedData = array();
 
-foreach ($data as $key => $value) {
-    if ($key == 'results') {
-        $invertedResults = array();
-        foreach ($value as $result) {
-            $invertedResult = array();
-            foreach ($result as $subKey => $subValue) {
-                $invertedResult[strrev($subKey)] = strrev($subValue);
-            }
-            $invertedResults[] = $invertedResult;
-        }
-        $invertedData['stluser'] = $invertedResults;
-    } else {
-        $invertedData[strrev($key)] = $value;
-    }
-}
-unset($invertedData['pageNum'], $invertedData['totalNumPages'], $invertedData['found']);
+ $invertedData = array();
 
+ foreach ($data as $key => $value) {
+	 if ($key == 'results') {
+		 $invertedResults = array();
+		 foreach ($value as $result) {
+			 $invertedResult = array();
+			 foreach ($result as $subKey => $subValue) {
+				 $invertedResult[strrev($subKey)] = strrev($subValue);
+			 }
+			 $invertedResults[] = $invertedResult;
+		 }
+		 $invertedData['stluser'] = $invertedResults;
+	 } else {
+		 $invertedData[strrev($key)] = $value;
+	 }
+ }
+
+ 
     $reversed_text = strrev($json);
 }
 ?>
